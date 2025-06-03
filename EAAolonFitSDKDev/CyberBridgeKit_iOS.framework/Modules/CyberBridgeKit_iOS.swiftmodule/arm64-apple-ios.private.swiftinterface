@@ -1,0 +1,609 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.0.3 effective-5.10 (swiftlang-6.0.3.1.10 clang-1600.0.30.1)
+// swift-module-flags: -target arm64-apple-ios14.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name CyberBridgeKit_iOS
+import CoreBluetooth
+import Foundation
+import ObjectiveC
+import Swift
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public enum WatchState : Swift.Int {
+  case disconnected
+  case connecting
+  case syncing
+  case connected
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public protocol CyberBridgeDelegate : AnyObject {
+  func didState(_ state: CyberBridgeKit_iOS.WatchState)
+  func didBatteryManual(_ value: CyberBridgeKit_iOS.QueryBattery)
+  func takeCamera()
+  func exitCamera()
+  func findPhone()
+}
+public class DeviceBean {
+  public var peripheral: CoreBluetooth.CBPeripheral?
+  public var mac: Swift.String
+  public var name: Swift.String
+  public var cloudUUID: Swift.String?
+  public var isRetri: Swift.Bool
+  public init(mac: Swift.String, name: Swift.String, pv: CoreBluetooth.CBPeripheral? = nil, cuuid: Swift.String? = nil, isRetri: Swift.Bool = false)
+  public func setPeripheral(_ dv: CoreBluetooth.CBPeripheral)
+  @objc deinit
+}
+public struct HardwareConfig : Swift.Codable {
+  public var configVersion: Swift.Int
+  public var isSupportHeartRate: Swift.Bool
+  public var isSupportHeartRateAuto: Swift.Bool
+  public var isSupportHeartRateAutoSet: Swift.Bool
+  public var isSupportHeartRateManual: Swift.Bool
+  public var isSupportRestingHeartRate: Swift.Bool
+  public var isSupportBloodOxygen: Swift.Bool
+  public var isSupportBloodOxygenAuto: Swift.Bool
+  public var isSupportBloodOxygenAutoSet: Swift.Bool
+  public var isSupportBloodOxygenManual: Swift.Bool
+  public var isSupportStress: Swift.Bool
+  public var isSupportStressAuto: Swift.Bool
+  public var isSupportStressManual: Swift.Bool
+  public var isSupportSleep: Swift.Bool
+  public var isSupportSleepAuto: Swift.Bool
+  public var isSupportStep: Swift.Bool
+  public var isSupportStepAuto: Swift.Bool
+  public var isSupportBloodPressure: Swift.Bool
+  public var isSupportBloodPressureAuto: Swift.Bool
+  public var isSupportBloodPressureManual: Swift.Bool
+  public var isSupportExercise: Swift.Bool
+  public var isSupportExerciseHistory: Swift.Bool
+  public var isSupportExerciseStateSync: Swift.Bool
+  public var isSupportExerciseGPS: Swift.Bool
+  public var isSupportAppNotification: Swift.Bool
+  public var isSupportSMSNotification: Swift.Bool
+  public var isSupportWeather: Swift.Bool
+  public var isSupportWeatherCity: Swift.Bool
+  public var isSupportHeartRateHighWarning: Swift.Bool
+  public var isSupportHeartRateLowWarning: Swift.Bool
+  public var isSupportSedentaryReminder: Swift.Bool
+  public var isSupportSedentaryReminderTimePeriod: Swift.Bool
+  public var isSupportSedentaryReminderInterval: Swift.Bool
+  public var isSupportSedentaryReminderLBNDM: Swift.Bool
+  public var isSupportSedentaryReminderLBNDMTimePeriod: Swift.Bool
+  public var isSupportDrinkReminder: Swift.Bool
+  public var isSupportRaiseLightScreen: Swift.Bool
+  public var isSupportFindDevice: Swift.Bool
+  public var isSupportFindPhone: Swift.Bool
+  public var isSupportRemoteCamera: Swift.Bool
+  public var isSupportTimeFormat: Swift.Bool
+  public var isSupportTemperatureFormat: Swift.Bool
+  public var isSupportMetric: Swift.Bool
+  public var isSupportMusicPlayer: Swift.Bool
+  public var isSupportMusicPlayerInfo: Swift.Bool
+  public var isSupportNotDisturbMode: Swift.Bool
+  public var isSupportNotDisturbModeSwitch: Swift.Bool
+  public var isSupportImportContact: Swift.Bool
+  public var isSupportChangeLanguage: Swift.Bool
+  public var isSupportWatchFace: Swift.Bool
+  public var isSupportCallReminder: Swift.Bool
+  public var isNeedBond: Swift.Bool
+  public var isSupportSOS: Swift.Bool
+  public var isSupportElectronicCard: Swift.Bool
+  public var isSupportWorldClock: Swift.Bool
+  public var isSupportAlarmClock: Swift.Bool
+  public var isSupportQuickSMSReply: Swift.Bool
+  public var isSupportSetTodayTarget: Swift.Bool
+  public var isSupportSOSContactSwitch: Swift.Bool
+  public var isSupportMenstrualCycle: Swift.Bool
+  public var isSupportDIYWatchFace: Swift.Bool
+  public var isSupportOnlineWatchFace: Swift.Bool
+  public var isSupportHealthAutoMeasure: Swift.Bool
+  public var isSupportAGPS: Swift.Bool
+  public var isSupportWeatherFuture24Hours: Swift.Bool
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct HeartRateInfoEntity : Swift.Codable {
+  public var timestamp: Swift.Double
+  public var heartRate: Swift.Int
+  public var measureType: Swift.Int
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct StressInfoEntity : Swift.Codable {
+  public var timestamp: Swift.Double
+  public var stress: Swift.Int
+  public var measureType: Swift.Int
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct BloodOxygenInfoEntity : Swift.Codable {
+  public var timestamp: Swift.Double
+  public var bloodOxygen: Swift.Int
+  public var measureType: Swift.Int
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct BloodPressureInfoEntity : Swift.Codable {
+  public var timestamp: Swift.Double
+  public var sbp: Swift.Int
+  public var dbp: Swift.Int
+  public var measureType: Swift.Int
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SleepInfoEntity : Swift.Codable {
+  public var startTimestamp: Swift.Double
+  public var endTimestamp: Swift.Double
+  public var totalTime: Swift.Int
+  public var deepSleepTime: Swift.Int
+  public var lightSleepTime: Swift.Int
+  public var soberTime: Swift.Int
+  public var remTime: Swift.Int
+  public var detail: [CyberBridgeKit_iOS.SleepInfoEntity.Detail]?
+  public init()
+  public struct Detail : Swift.Codable {
+    public var startTimestamp: Swift.Double
+    public var endTimestamp: Swift.Double
+    public var type: Swift.Int
+    public init()
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct StepInfoEntity : Swift.Codable {
+  public var timestamp: Swift.Double
+  public var step: Swift.Int
+  public var distance: Swift.Int
+  public var calories: Swift.Int
+  public var activityTime: Swift.Int?
+  public var category: [CyberBridgeKit_iOS.StepInfoEntity.Category]?
+  public init()
+  public struct Category : Swift.Codable {
+    public var timestamp: Swift.Double
+    public var step: Swift.Int
+    public var distance: Swift.Int
+    public var calories: Swift.Int
+    public init()
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct ExerciseInfoEntity : Swift.Codable {
+  public var startTimestamp: Swift.Double
+  public var endTimestamp: Swift.Double
+  public var exerciseType: Swift.Int
+  public var step: Swift.Int
+  public var calories: Swift.Int
+  public var distance: Swift.Int
+  public var activityTime: Swift.Int
+  public var heartRateList: [Swift.Int]?
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct MenstrualCycleEntity : Swift.Codable {
+  public var lastMenstrualDate: Swift.Double
+  public var menstrualPeriodDays: Swift.Int
+  public var menstrualCycleDays: Swift.Int
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct HeartRateMesureEntity : Swift.Codable {
+  public var isEnabled: Swift.Bool
+  public var value: Swift.Int
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct StressMeasureEntity : Swift.Codable {
+  public var isEnabled: Swift.Bool
+  public var value: Swift.Int
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct BloodOxygenSetEntity : Swift.Codable {
+  public var isEnabled: Swift.Bool
+  public var value: Swift.Int
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct RaiseLightScreenEntity : Swift.Codable {
+  public var isEnabled: Swift.Bool
+  public var startTime: Swift.Int
+  public var endTime: Swift.Int
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct NotDisturbModeEntity : Swift.Codable {
+  public var isEnabled: Swift.Bool
+  public var startTime: Swift.Int
+  public var endTime: Swift.Int
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SedentaryReminderEntity : Swift.Codable {
+  public var isEnabled: Swift.Bool
+  public var startTime: Swift.Int
+  public var endTime: Swift.Int
+  public var interval: Swift.Int
+  public var isLaunchBreakEnabled: Swift.Bool
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct UserProfileEntity : Swift.Codable {
+  public var weight: Swift.Int
+  public var height: Swift.Int
+  public var gender: Swift.Int
+  public var age: Swift.Int
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct DailyTargetEntity : Swift.Codable {
+  public var step: Swift.Int
+  public var calories: Swift.Int
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct TodayWeatherEntity : Swift.Codable {
+  public var city: Swift.String
+  public var temperature: Swift.Int
+  public var type: Swift.Int
+  public var sunrise: Swift.Int
+  public var sunset: Swift.Int
+  public var maxTemperature: Swift.Int
+  public var minTemperature: Swift.Int
+  public var uv: Swift.Int
+  public var humidity: Swift.Int
+  public var pm25: Swift.Int
+  public var updateTimeInMillis: Swift.Double
+  public var aqiLevel: Swift.Int
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct FutureWeatherEntity : Swift.Codable {
+  public var lowTemperature: Swift.Int
+  public var highTemperature: Swift.Int
+  public var type: Swift.Int
+  public var uv: Swift.Int
+  public var humidity: Swift.Int
+  public var timeInMillis: Swift.Double
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct AlarmEntity : Swift.Codable {
+  public var id: Swift.Int
+  public var hour: Swift.Int
+  public var minute: Swift.Int
+  public var isEnabled: Swift.Bool
+  public var repeats: [Swift.Int]
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct QueryBattery : Swift.Codable {
+  public var percentage: Swift.Int
+  public var isCharging: Swift.Bool
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct ContactPersonEntity : Swift.Codable {
+  public var id: Swift.Int
+  public var name: Swift.String
+  public var phoneNumber: Swift.String
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct CardEntity : Swift.Codable {
+  public var id: Swift.Int
+  public var title: Swift.String
+  public var url: Swift.String
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct NotifyEntity : Swift.Codable {
+  public var isEnabled: Swift.Bool
+  public var type: Swift.Int
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SosCallEntity : Swift.Codable {
+  public var name: Swift.String
+  public var phoneNumber: Swift.String
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct WorldClockEntity : Swift.Codable {
+  public var id: Swift.Int
+  public var city: Swift.String
+  public var currentTimeZone: Swift.Int
+  public var targetTimeZone: Swift.Int
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct HealthAutoMeasureEntity : Swift.Codable {
+  public var isEnabled: Swift.Int
+  public var value: Swift.Int
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct FutureHourWeatherEntity : Swift.Codable {
+  public var timestamp: Swift.Double
+  public var type: Swift.Int
+  public var temperature: Swift.Int
+  public var uv: Swift.Int
+  public var humidity: Swift.Int
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public protocol CyberBridgeProtocol {
+  typealias HandwarwCallback01 = (CyberBridgeKit_iOS.HardwareConfig) -> ()
+  typealias HeartRateCallback = ([CyberBridgeKit_iOS.HeartRateInfoEntity]) -> ()
+  typealias StressCallback = ([CyberBridgeKit_iOS.StressInfoEntity]) -> ()
+  typealias BloodOxygenCallback = ([CyberBridgeKit_iOS.BloodOxygenInfoEntity]) -> ()
+  typealias BloodPressureCallback = ([CyberBridgeKit_iOS.BloodPressureInfoEntity]) -> ()
+  typealias SleepCallback = ([CyberBridgeKit_iOS.SleepInfoEntity]) -> ()
+  typealias StepCallback = ([CyberBridgeKit_iOS.StepInfoEntity]) -> ()
+  typealias ExerciseCallback = ([CyberBridgeKit_iOS.ExerciseInfoEntity]) -> ()
+  typealias HeartRateMesureCallback = (CyberBridgeKit_iOS.HeartRateMesureEntity) -> ()
+  typealias BoolCallback = (Swift.Bool) -> ()
+  typealias StressMesureCallback = (CyberBridgeKit_iOS.StressMeasureEntity) -> ()
+  typealias BloodOxygenMesureCallback = (CyberBridgeKit_iOS.BloodOxygenSetEntity) -> ()
+  typealias IntCallback = (Swift.Int) -> ()
+  typealias RaiseLightScreenCallback = (CyberBridgeKit_iOS.RaiseLightScreenEntity) -> ()
+  typealias NotDisturbModeCallback = (CyberBridgeKit_iOS.NotDisturbModeEntity) -> ()
+  typealias SedentaryReminderCallback = (CyberBridgeKit_iOS.SedentaryReminderEntity) -> ()
+  typealias UserProfileCallback = (CyberBridgeKit_iOS.UserProfileEntity) -> ()
+  typealias DailyTargetCallback = (CyberBridgeKit_iOS.DailyTargetEntity) -> ()
+  typealias AlarmCallback = ([CyberBridgeKit_iOS.AlarmEntity]) -> ()
+  typealias BatteryCallback = (CyberBridgeKit_iOS.QueryBattery) -> ()
+  typealias CardsCallback = ([CyberBridgeKit_iOS.CardEntity]) -> ()
+  typealias IntArrCallBack = ([Swift.Int]) -> ()
+  typealias NotifysCallBack = ([CyberBridgeKit_iOS.NotifyEntity]) -> ()
+  typealias HealthAutoMeasureCallBack = (CyberBridgeKit_iOS.HealthAutoMeasureEntity) -> ()
+  typealias MenstrualCycleCallBack = (CyberBridgeKit_iOS.MenstrualCycleEntity) -> ()
+  typealias WorldClockCallBack = ([CyberBridgeKit_iOS.WorldClockEntity]) -> ()
+  typealias SosCallBack = ([CyberBridgeKit_iOS.SosCallEntity], Swift.Bool) -> ()
+  typealias ContactPersonCallBack = ([CyberBridgeKit_iOS.ContactPersonEntity]) -> ()
+  typealias StringCallBack = (Swift.String) -> ()
+  func initSDK()
+  func connect()
+  func disconnect()
+  func unbind()
+  func setOnBLEConnectState(listener: (any CyberBridgeKit_iOS.CyberBridgeDelegate)?)
+  func queryHardwareConfig(_ complete: Self.HandwarwCallback01?)
+  func fetchHeartRate(complete: Self.HeartRateCallback?)
+  func fetchStress(complete: Self.StressCallback?)
+  func fetchBloodOxygen(complete: Self.BloodOxygenCallback?)
+  func fetchBloodPressure(complete: Self.BloodPressureCallback?)
+  func fetchSleep(complete: Self.SleepCallback?)
+  func fetchStep(complete: Self.StepCallback?)
+  func fetchExercise(complete: Self.ExerciseCallback?)
+  func queryHeartRateAutoMesure(complete: Self.HeartRateMesureCallback?)
+  func setHeartRateAutoMeasure(_ entity: CyberBridgeKit_iOS.HeartRateMesureEntity, complete: Self.BoolCallback?)
+  func queryHeartRateHighRemind(complete: Self.HeartRateMesureCallback?)
+  func setHeartRateHighRemind(_ entity: CyberBridgeKit_iOS.HeartRateMesureEntity, complete: Self.BoolCallback?)
+  func queryHeartRateLowRemind(complete: Self.HeartRateMesureCallback?)
+  func setHeartRateLowRemind(_ entity: CyberBridgeKit_iOS.HeartRateMesureEntity, complete: Self.BoolCallback?)
+  func queryStressAutoMeasure(complete: Self.StressMesureCallback?)
+  func setStressAutoMeasure(_ entity: CyberBridgeKit_iOS.StressMeasureEntity, complete: Self.BoolCallback?)
+  func queryBloodOxygenAutoMeasure(complete: Self.BloodOxygenMesureCallback?)
+  func setBloodOxygenAutoMeasure(_ entity: CyberBridgeKit_iOS.BloodOxygenSetEntity, complete: Self.BoolCallback?)
+  func queryMetricAndImperialUnit(complete: Self.IntCallback?)
+  func setMetricAndImperialUnit(_ metricImperial: Swift.Int, complete: Self.BoolCallback?)
+  func queryTimeFormat(complete: Self.IntCallback?)
+  func setTimeFormat(_ timeFormat: Swift.Int, complete: Self.BoolCallback?)
+  func queryRaiseLightScreen(complete: Self.RaiseLightScreenCallback?)
+  func setRaiseLightScreen(_ entity: CyberBridgeKit_iOS.RaiseLightScreenEntity, complete: Self.BoolCallback?)
+  func queryNotDisturbMode(complete: Self.NotDisturbModeCallback?)
+  func setNotDisturbMode(_ entity: CyberBridgeKit_iOS.NotDisturbModeEntity, complete: Self.BoolCallback?)
+  func querySedentaryReminder(complete: Self.SedentaryReminderCallback?)
+  func setSedentaryReminder(_ entity: CyberBridgeKit_iOS.SedentaryReminderEntity, complete: Self.BoolCallback?)
+  func queryUserInfo(complete: Self.UserProfileCallback?)
+  func setUserInfo(_ entity: CyberBridgeKit_iOS.UserProfileEntity, complete: Self.BoolCallback?)
+  func queryDailyTarget(complete: Self.DailyTargetCallback?)
+  func setDailyTarget(_ entity: CyberBridgeKit_iOS.DailyTargetEntity, complete: Self.BoolCallback?)
+  func queryTemperatureUnit(complete: Self.IntCallback?)
+  func setTemperatureUnit(_ value: Swift.Int, complete: Self.BoolCallback?)
+  func pushTodayWeather(_ entity: CyberBridgeKit_iOS.TodayWeatherEntity, complete: Self.BoolCallback?)
+  func pushFutureWeather(_ entitys: [CyberBridgeKit_iOS.FutureWeatherEntity], complete: Self.BoolCallback?)
+  func pushTodayWeather(_ todayWeather: CyberBridgeKit_iOS.TodayWeatherEntity, _ futureWeathers: [CyberBridgeKit_iOS.FutureWeatherEntity], _ FutureHourWeathers: [CyberBridgeKit_iOS.FutureHourWeatherEntity], complete: Self.BoolCallback?)
+  func queryAlarmMaxCount(complete: Self.IntCallback?)
+  func queryAlarmList(complete: Self.AlarmCallback?)
+  func addAlarm(_ entity: CyberBridgeKit_iOS.AlarmEntity, complete: Self.BoolCallback?)
+  func editAlarm(_ entity: CyberBridgeKit_iOS.AlarmEntity, complete: Self.BoolCallback?)
+  func deleteAlarm(_ entity: CyberBridgeKit_iOS.AlarmEntity, complete: Self.BoolCallback?)
+  func queryBattery(complete: Self.BatteryCallback?)
+  func queryContactMaxCount(complete: Self.IntCallback?)
+  func sendContactList(_ contacts: [CyberBridgeKit_iOS.ContactPersonEntity], complete: Self.BoolCallback?)
+  func deleteContact(_ entity: CyberBridgeKit_iOS.ContactPersonEntity, complete: Self.BoolCallback?)
+  func deleteAllContact(complete: Self.BoolCallback?)
+  func queryEleCardMaxCount(complete: Self.IntCallback?)
+  func queryEleCardLengthLimit(complete: Self.IntCallback?)
+  func queryEleCardList(complete: Self.CardsCallback?)
+  func sendEleCard(_ entitys: [CyberBridgeKit_iOS.CardEntity], complete: Self.BoolCallback?)
+  func sortEleCard(_ ids: [Swift.Int], complete: Self.BoolCallback?)
+  func deleteEleCard(_ entity: CyberBridgeKit_iOS.CardEntity, complete: Self.BoolCallback?)
+  func queryLanguage(complete: Self.IntCallback?)
+  func setLanguage(_ languageId: Swift.Int, complete: Self.BoolCallback?)
+  func querySOSContactMaxCount(complete: Self.IntCallback?)
+  func sendSOSContacts(_ entitys: [CyberBridgeKit_iOS.SosCallEntity], _ isEnabled: Swift.Bool, complete: Self.BoolCallback?)
+  func queryDisplayWatchFace(complete: Self.StringCallBack?)
+  func setDisplayWatchFace(_ id: Swift.String, complete: Self.BoolCallback?)
+  func queryWorldClockMaxCount(complete: Self.IntCallback?)
+  func sendWorldClock(_ entitys: [CyberBridgeKit_iOS.WorldClockEntity], complete: Self.BoolCallback?)
+  func deleteWorldClock(_ entity: CyberBridgeKit_iOS.WorldClockEntity, complete: Self.BoolCallback?)
+  func queryWorldClocks(complete: Self.WorldClockCallBack?)
+  func enterCamera(complete: Self.BoolCallback?)
+  func exitCamera(complete: Self.BoolCallback?)
+  func findDevice(complete: Self.BoolCallback?)
+  func setMusicControlSwitch(state: Swift.Int, complete: Self.BoolCallback?)
+  func queryMusicControlSwitch(complete: Self.IntCallback?)
+  func queryAppNotify(complete: Self.NotifysCallBack?)
+  func setAppNotify(_ entitys: [CyberBridgeKit_iOS.NotifyEntity], complete: Self.BoolCallback?)
+  func syncTime(value: Swift.Int, complete: Self.BoolCallback?)
+  func queryHealthAutoMeasure(complete: Self.HealthAutoMeasureCallBack?)
+  func setHealthAutoMeasure(_ entity: CyberBridgeKit_iOS.HealthAutoMeasureEntity, complete: Self.BoolCallback?)
+  func queryMenstrualCycleInfo(complete: Self.MenstrualCycleCallBack?)
+  func setMenstrualCycleInfo(_ entity: CyberBridgeKit_iOS.MenstrualCycleEntity, complete: Self.BoolCallback?)
+  func queryContactList(complete: Self.ContactPersonCallBack?)
+  func querySOSList(complete: Self.SosCallBack?)
+  func clearWorldClock(complete: Self.BoolCallback?)
+}
+@_hasMissingDesignatedInitializers public class DeviceBasicSetting : Swift.Codable {
+  public var userID: Swift.String
+  public var hdwConfig: CyberBridgeKit_iOS.HardwareConfig
+  public var temperatureUnit: Swift.Int
+  public var distanceUnit: Swift.Int
+  public var timeUnit: Swift.Int
+  public var languageCode: Swift.Int
+  public var raiseLightModel: CyberBridgeKit_iOS.RaiseLightScreenEntity
+  public var heartRateMesureModel: CyberBridgeKit_iOS.HeartRateMesureEntity
+  public var heartRateMaxAlarmModel: CyberBridgeKit_iOS.HeartRateMesureEntity
+  public var heartRateMinAlarmModel: CyberBridgeKit_iOS.HeartRateMesureEntity
+  public var stressMesureModel: CyberBridgeKit_iOS.StressMeasureEntity
+  public var bloodOxygenMesureModel: CyberBridgeKit_iOS.BloodOxygenSetEntity
+  public var userProfileModel: CyberBridgeKit_iOS.UserProfileEntity
+  public var notDisturbModel: CyberBridgeKit_iOS.NotDisturbModeEntity
+  public var sedentaryReamindModel: CyberBridgeKit_iOS.SedentaryReminderEntity
+  public var dailyTargetModel: CyberBridgeKit_iOS.DailyTargetEntity
+  public var alarmClockModels: [CyberBridgeKit_iOS.AlarmEntity]
+  public var worldClockModels: [CyberBridgeKit_iOS.WorldClockEntity]
+  public var electronicCardModels: [CyberBridgeKit_iOS.CardEntity]
+  public var notifyModels: [CyberBridgeKit_iOS.NotifyEntity]
+  public var maxElecCardNum: Swift.Int
+  public var maxAlarmClockNum: Swift.Int
+  public var maxWorldClockNum: Swift.Int
+  public var battery: Swift.Int
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc open class ExecutionData : ObjectiveC.NSObject, CyberBridgeKit_iOS.CyberBridgeProtocol {
+  open var heartRateCall: CyberBridgeKit_iOS.ExecutionData.HeartRateCallback?
+  open var stressCall: CyberBridgeKit_iOS.ExecutionData.StressCallback?
+  open var bloodOxygenCall: CyberBridgeKit_iOS.ExecutionData.BloodOxygenCallback?
+  open var bloodPressureCall: CyberBridgeKit_iOS.ExecutionData.BloodPressureCallback?
+  open var sleepCall: CyberBridgeKit_iOS.ExecutionData.SleepCallback?
+  open var stepCall: CyberBridgeKit_iOS.ExecutionData.StepCallback?
+  open var exerciseCall: CyberBridgeKit_iOS.ExecutionData.ExerciseCallback?
+  weak open var delegate: (any CyberBridgeKit_iOS.CyberBridgeDelegate)?
+  open var device: CyberBridgeKit_iOS.DeviceBean
+  public init(device: CyberBridgeKit_iOS.DeviceBean)
+  open func initSDK()
+  open func connect()
+  open func disconnect()
+  open func unbind()
+  open func setOnBLEConnectState(listener: (any CyberBridgeKit_iOS.CyberBridgeDelegate)?)
+  open func queryHardwareConfig(_ complete: CyberBridgeKit_iOS.ExecutionData.HandwarwCallback01?)
+  open func fetchHeartRate(complete: CyberBridgeKit_iOS.ExecutionData.HeartRateCallback?)
+  open func fetchStress(complete: CyberBridgeKit_iOS.ExecutionData.StressCallback?)
+  open func fetchBloodOxygen(complete: CyberBridgeKit_iOS.ExecutionData.BloodOxygenCallback?)
+  open func fetchBloodPressure(complete: CyberBridgeKit_iOS.ExecutionData.BloodPressureCallback?)
+  open func fetchSleep(complete: CyberBridgeKit_iOS.ExecutionData.SleepCallback?)
+  open func fetchStep(complete: CyberBridgeKit_iOS.ExecutionData.StepCallback?)
+  open func fetchExercise(complete: CyberBridgeKit_iOS.ExecutionData.ExerciseCallback?)
+  open func queryHeartRateAutoMesure(complete: CyberBridgeKit_iOS.ExecutionData.HeartRateMesureCallback?)
+  open func setHeartRateAutoMeasure(_ entity: CyberBridgeKit_iOS.HeartRateMesureEntity, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func queryHeartRateHighRemind(complete: CyberBridgeKit_iOS.ExecutionData.HeartRateMesureCallback?)
+  open func setHeartRateHighRemind(_ entity: CyberBridgeKit_iOS.HeartRateMesureEntity, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func queryHeartRateLowRemind(complete: CyberBridgeKit_iOS.ExecutionData.HeartRateMesureCallback?)
+  open func setHeartRateLowRemind(_ entity: CyberBridgeKit_iOS.HeartRateMesureEntity, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func queryStressAutoMeasure(complete: CyberBridgeKit_iOS.ExecutionData.StressMesureCallback?)
+  open func setStressAutoMeasure(_ entity: CyberBridgeKit_iOS.StressMeasureEntity, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func queryBloodOxygenAutoMeasure(complete: CyberBridgeKit_iOS.ExecutionData.BloodOxygenMesureCallback?)
+  open func setBloodOxygenAutoMeasure(_ entity: CyberBridgeKit_iOS.BloodOxygenSetEntity, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func queryMetricAndImperialUnit(complete: CyberBridgeKit_iOS.ExecutionData.IntCallback?)
+  open func setMetricAndImperialUnit(_ metricImperial: Swift.Int, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func queryTimeFormat(complete: CyberBridgeKit_iOS.ExecutionData.IntCallback?)
+  open func setTimeFormat(_ timeFormat: Swift.Int, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func queryRaiseLightScreen(complete: CyberBridgeKit_iOS.ExecutionData.RaiseLightScreenCallback?)
+  open func setRaiseLightScreen(_ entity: CyberBridgeKit_iOS.RaiseLightScreenEntity, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func queryNotDisturbMode(complete: CyberBridgeKit_iOS.ExecutionData.NotDisturbModeCallback?)
+  open func setNotDisturbMode(_ entity: CyberBridgeKit_iOS.NotDisturbModeEntity, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func querySedentaryReminder(complete: CyberBridgeKit_iOS.ExecutionData.SedentaryReminderCallback?)
+  open func setSedentaryReminder(_ entity: CyberBridgeKit_iOS.SedentaryReminderEntity, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func queryUserInfo(complete: CyberBridgeKit_iOS.ExecutionData.UserProfileCallback?)
+  open func setUserInfo(_ entity: CyberBridgeKit_iOS.UserProfileEntity, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func queryDailyTarget(complete: CyberBridgeKit_iOS.ExecutionData.DailyTargetCallback?)
+  open func setDailyTarget(_ entity: CyberBridgeKit_iOS.DailyTargetEntity, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func queryTemperatureUnit(complete: CyberBridgeKit_iOS.ExecutionData.IntCallback?)
+  open func setTemperatureUnit(_ value: Swift.Int, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func pushTodayWeather(_ entity: CyberBridgeKit_iOS.TodayWeatherEntity, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func pushFutureWeather(_ entitys: [CyberBridgeKit_iOS.FutureWeatherEntity], complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func pushTodayWeather(_ todayWeather: CyberBridgeKit_iOS.TodayWeatherEntity, _ futureWeathers: [CyberBridgeKit_iOS.FutureWeatherEntity], _ FutureHourWeathers: [CyberBridgeKit_iOS.FutureHourWeatherEntity], complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func queryAlarmMaxCount(complete: CyberBridgeKit_iOS.ExecutionData.IntCallback?)
+  open func queryAlarmList(complete: CyberBridgeKit_iOS.ExecutionData.AlarmCallback?)
+  open func addAlarm(_ entity: CyberBridgeKit_iOS.AlarmEntity, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func editAlarm(_ entity: CyberBridgeKit_iOS.AlarmEntity, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func deleteAlarm(_ entity: CyberBridgeKit_iOS.AlarmEntity, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func queryBattery(complete: CyberBridgeKit_iOS.ExecutionData.BatteryCallback?)
+  open func queryContactMaxCount(complete: CyberBridgeKit_iOS.ExecutionData.IntCallback?)
+  open func sendContactList(_ contacts: [CyberBridgeKit_iOS.ContactPersonEntity], complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func deleteContact(_ entity: CyberBridgeKit_iOS.ContactPersonEntity, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func deleteAllContact(complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func queryEleCardMaxCount(complete: CyberBridgeKit_iOS.ExecutionData.IntCallback?)
+  open func queryEleCardLengthLimit(complete: CyberBridgeKit_iOS.ExecutionData.IntCallback?)
+  open func queryEleCardList(complete: CyberBridgeKit_iOS.ExecutionData.CardsCallback?)
+  open func sendEleCard(_ entitys: [CyberBridgeKit_iOS.CardEntity], complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func sortEleCard(_ ids: [Swift.Int], complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func deleteEleCard(_ entity: CyberBridgeKit_iOS.CardEntity, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func queryLanguage(complete: CyberBridgeKit_iOS.ExecutionData.IntCallback?)
+  open func setLanguage(_ languageId: Swift.Int, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func querySOSContactMaxCount(complete: CyberBridgeKit_iOS.ExecutionData.IntCallback?)
+  open func sendSOSContacts(_ entitys: [CyberBridgeKit_iOS.SosCallEntity], _ isEnable: Swift.Bool = true, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func queryDisplayWatchFace(complete: CyberBridgeKit_iOS.ExecutionData.StringCallBack?)
+  open func setDisplayWatchFace(_ id: Swift.String, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func queryWorldClockMaxCount(complete: CyberBridgeKit_iOS.ExecutionData.IntCallback?)
+  open func sendWorldClock(_ entitys: [CyberBridgeKit_iOS.WorldClockEntity], complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func deleteWorldClock(_ entity: CyberBridgeKit_iOS.WorldClockEntity, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func queryWorldClocks(complete: CyberBridgeKit_iOS.ExecutionData.WorldClockCallBack?)
+  open func enterCamera(complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func exitCamera(complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func findDevice(complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func setMusicControlSwitch(state: Swift.Int, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func queryMusicControlSwitch(complete: CyberBridgeKit_iOS.ExecutionData.IntCallback?)
+  open func queryAppNotify(complete: CyberBridgeKit_iOS.ExecutionData.NotifysCallBack?)
+  open func setAppNotify(_ entitys: [CyberBridgeKit_iOS.NotifyEntity], complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func syncTime(value: Swift.Int, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func queryHealthAutoMeasure(complete: CyberBridgeKit_iOS.ExecutionData.HealthAutoMeasureCallBack?)
+  open func setHealthAutoMeasure(_ entity: CyberBridgeKit_iOS.HealthAutoMeasureEntity, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func queryMenstrualCycleInfo(complete: CyberBridgeKit_iOS.ExecutionData.MenstrualCycleCallBack?)
+  open func setMenstrualCycleInfo(_ entity: CyberBridgeKit_iOS.MenstrualCycleEntity, complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  open func queryContactList(complete: CyberBridgeKit_iOS.ExecutionData.ContactPersonCallBack?)
+  open func querySOSList(complete: CyberBridgeKit_iOS.ExecutionData.SosCallBack?)
+  open func clearWorldClock(complete: CyberBridgeKit_iOS.ExecutionData.BoolCallback?)
+  @objc deinit
+}
+extension CyberBridgeKit_iOS.WatchState : Swift.Equatable {}
+extension CyberBridgeKit_iOS.WatchState : Swift.Hashable {}
+extension CyberBridgeKit_iOS.WatchState : Swift.RawRepresentable {}

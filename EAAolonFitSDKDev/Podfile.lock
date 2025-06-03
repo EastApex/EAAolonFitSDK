@@ -1,0 +1,60 @@
+PODS:
+  - BGFMDB (2.0.13):
+    - BGFMDB/BG (= 2.0.13)
+    - BGFMDB/FMDB (= 2.0.13)
+  - BGFMDB/BG (2.0.13):
+    - BGFMDB/FMDB
+  - BGFMDB/FMDB (2.0.13)
+  - CocoaLumberjack (3.8.5):
+    - CocoaLumberjack/Core (= 3.8.5)
+  - CocoaLumberjack/Core (3.8.5)
+  - EABluetooth (1.1.15.2):
+    - BGFMDB
+    - Protobuf
+    - SAMKeychain
+    - SVGKit
+    - YYKit
+    - ZipArchive
+  - Protobuf (3.29.4)
+  - SAMKeychain (1.5.3)
+  - SnapKit (5.7.1)
+  - SVGKit (3.0.0):
+    - CocoaLumberjack (~> 3.0)
+  - YYKit (1.0.9):
+    - YYKit/no-arc (= 1.0.9)
+  - YYKit/no-arc (1.0.9)
+  - ZipArchive (1.4.0)
+
+DEPENDENCIES:
+  - EABluetooth (from `./`)
+  - SnapKit
+
+SPEC REPOS:
+  trunk:
+    - BGFMDB
+    - CocoaLumberjack
+    - Protobuf
+    - SAMKeychain
+    - SnapKit
+    - SVGKit
+    - YYKit
+    - ZipArchive
+
+EXTERNAL SOURCES:
+  EABluetooth:
+    :path: "./"
+
+SPEC CHECKSUMS:
+  BGFMDB: 48e6823027232402a678acc7f71484b1fc9171d0
+  CocoaLumberjack: 6a459bc897d6d80bd1b8c78482ec7ad05dffc3f0
+  EABluetooth: f3b0f53a1b0c1c3eae76a85adaa22ef928d21040
+  Protobuf: 2e6de032ba12b9efb390ae550d1a243a5b19ddfc
+  SAMKeychain: 483e1c9f32984d50ca961e26818a534283b4cd5c
+  SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
+  SVGKit: 1ad7513f8c74d9652f94ed64ddecda1a23864dea
+  YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
+  ZipArchive: e25a4373192673e3229ac8d6e9f64a3e5713c966
+
+PODFILE CHECKSUM: 2be1015012be2f585987fc175c3a79f816159827
+
+COCOAPODS: 1.16.2
